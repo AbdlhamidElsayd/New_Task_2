@@ -23,3 +23,6 @@ Route::get('/check_username', 'HomeController@check_username')->name('check_user
 Route::get('/redirect-login-facebook', 'Auth\LoginController@redirect_login')->name('login_face');
 Route::get('/callback-facebook', 'Auth\LoginController@callback_login');
 
+Route::get('/redirect-login-google', 'Auth\LoginController@redirect_login_google')->name('login_google');
+Route::get('/callback-google', 'Auth\LoginController@callback_google');
+

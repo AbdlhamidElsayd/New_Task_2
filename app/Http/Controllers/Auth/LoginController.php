@@ -85,4 +85,36 @@ class LoginController extends Controller
             }
         }
     }
+
+    public function redirect_login_google(Request $request)
+    {
+        session()->put('status',$request->status );
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function callback_google()
+    {
+        $user = Socialite::driver('google')->user();
+        $find_user = \App\User::where('email' ,$user->email )->first();
+        if($find_user){
+            auth()->login($find_user);
+            return redirect()->to('/')->with(['status' => 'success', 'message' => __('login with google successfully')]);
+        }else{
+            if(Session::has('status')){
+                if(session('status') == 'login'){
+                    return redirect()->to('/')->with(['status' => 'error', 'message' => __('you don\'t have an account')]);
+                }else{
+                    $user = User::create([
+                        'email' => $user->getEmail(),
+                        'name' => $user->getName(),
+                        'password' => md5(rand(1,10000)),
+                    ]);
+                    auth()->login($user);
+                    return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with google successfully')]);
+                }
+            } else{
+                return redirect()->to('/')->with(['status' => 'error', 'message' => __('Failed Authentication')]);
+            }
+        }
+    }
 }

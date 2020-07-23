@@ -31,10 +31,15 @@ return [
     ],
 
     
-    'facebook' => [
+    'facebook' => [ 
         'client_id' => '1639469416233954',
         'client_secret' => '399e2540a3802016424f6a93f149c71a',
         'redirect' => 'http://localhost/Task/newTask/public/callback-facebook',
+    ],
+    'google' => [ 
+        'client_id' => '963794533444-c1ojo7sb9alsnfejaupkdmtnpttb35bh.apps.googleusercontent.com',
+        'client_secret' => '21PB3Jn7llBHFIlpFh0flEOD',
+        'redirect' => 'http://localhost/Task/newTask/public/callback-google',
     ],
 
 ];
