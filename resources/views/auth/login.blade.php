@@ -30,36 +30,37 @@
                 <div class="tab-content col-md-12" id="pills-tabContent">
                     <div class="  tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row  ">
+
+                <!-- login form  -->
                             <div class="col-lg-3"> </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 p-b-30 bo-r">
                                 <form class="leave-comment">
-                                    <label> Username or Email</label>
 
+                                    <label> Username or Email</label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" value="{{ old('login') }}" name="login">
                                     </div>
+
                                     <label> Password</label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="phone-number">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
                                     </div>
+
                                     <label class="container-checkmark ">
                                         Keep me signed in
                                         <input type="checkbox" checked="checked">
                                         <span class="checkmark"></span>
                                     </label>
+
                                     <div class="">
                                         <!-- Button -->
-
                                         <button class="flex-c-m size2 bg1 bo-rad-3 hov1  trans-0-4 btn-primary m-b-10">
-
                                             Sign In
-
                                         </button>
 
-
                                         <a class="text-primary Forgot-pw f-bold" href="#" data-toggle="modal" data-target=".bd-create-modal">Forgot your password? <span> click here</span></a>
-
                                     </div>
+
                                 </form>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 p-b-30  ">
@@ -79,39 +80,47 @@
 
                         </div>
                     </div>
+            <!-- register form -->
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
                         <div class="row ">
                             <div class="col-md-3"> </div>
-
                             <div class="col-md-3 p-b-30 bo-r">
-                                <form class="leave-comment">
-                                    <label> name </label>
+                                <form class="leave-comment" method="post" action="{{ route('register') }}">
+                                    @csrf
 
+                                    <label> Name </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('name') }}" type="text" name="name">
                                     </div>
 
-                                    <label>email </label>
-
+                                    <label> User Name </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('user_name') }}" type="text" name="user_name">
                                     </div>
+
+                                    <label>Email </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22"value="{{ old('email') }}"  type="email" name="email">
+                                    </div>
+
                                     <label>Password </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="phone-number">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
                                     </div>
-                                    <p class="text-danger p-b-20 font-14"> it appears that you already have an account with us . Please <a href="login.html" class="text-primary hover-me font-16"> Sign in</a> instead </p>
+
+                                    <label>Confirm Password </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password_confirmation">
+                                    </div>
+
+                                    <p class="text-danger p-b-20 font-14"> it appears that you already have an account with us . Please <a href="{{route('login')}}" class="text-primary hover-me font-16"> Sign in</a> instead </p>
                                     <div class="">
                                         <!-- Button -->
                                         <button class="flex-c-m size2 bg1 bo-rad-3 hov1  trans-0-4 btn-primary">
-
                                             Sign Up
-
                                         </button>
-
-
                                     </div>
+
                                 </form>
                             </div>
                             <div class="col-md-3 p-b-30 ">

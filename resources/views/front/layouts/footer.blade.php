@@ -70,6 +70,22 @@
     <script type="text/javascript" src="{{ asset('front/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="{{ asset('front/vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('front/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function()
+        {
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            toastr['error']("{{ $error }}")
+            @endforeach
+            @endif
+            @if(session('status', '') == 'success')
+            toastr['success']("{{ session('message', '') }}")
+            @elseif(session('status', '') == 'error')
+            toastr['error']("{{ session('message', '') }}")
+            @endif 
+        })
+    </script>
     <script type="text/javascript">
         $(".selection-1").select2({
             minimumResultsForSearch: 20,

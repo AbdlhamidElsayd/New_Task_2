@@ -30,6 +30,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/overwrite.css') }}">
+<!-- to astr plugin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
     @yield('css')
     <!--===============================================================================================-->
@@ -61,12 +63,12 @@
 
                     <div class="header-wrapicon2">
 
-                        <a class="header-icon1 js-show-header-dropdown sign-in" href="login.html"><i class="fa fa-user" aria-hidden="true"></i> Sign In </a>
-       <!--
+                        <a class="header-icon1 js-show-header-dropdown sign-in" ><i class="fa fa-user" aria-hidden="true"></i> Sign In </a>
+       
                         <div class="header-cart header-dropdown header-cart-login">
                             <ul class="header-cart-wrapitem login">
 
-
+                                @auth
                                 <li class="header-cart-item">
                                     <a href="Order.html"> My orders </a>
                                 </li>
@@ -74,13 +76,24 @@
                                     <a href="account-settings.html"> Account Settings </a>
                                 </li>
                                 <li class="header-cart-item">
-                                    <a href="#">sign out </a>
+                                    <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();">sign out </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										{{ csrf_field() }}
+									</form>
                                 </li>
+                                @else
+                                <li class="header-cart-item">
+                                    <a href="{{ route('login') }}"> Login </a>
+                                </li>
+                                <li class="header-cart-item">
+                                    <a href="{{ route('register') }}">Register </a>
+                                </li>
+                                @endauth
                             </ul>
 
 
                         </div>
--->
+
                     </div>
 
                     <span class="linedivide1"></span>

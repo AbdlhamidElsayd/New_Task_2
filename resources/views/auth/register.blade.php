@@ -1,77 +1,144 @@
-@extends('layouts.app')
+@extends('front.layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+  <!-- content page -->
+    <section class="bgwhite p-b-60 mt-75">
+        <div class="container">
+            <div class="row justify-center m-b-20">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                <div class="col-md-12">
+                    <ul class="nav nav-pills pills-dark mb-3 justify-center" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <p class="f-bold text-center"> Already have an account .</p>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Login
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            </a>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        </li>
+                        <li class="nav-item">
+                            <p class="f-bold text-center"> Don't have an account yet ?</p>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Register</a>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row ">
+                <div class="tab-content col-md-12" id="pills-tabContent">
+                    <div class="  tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="row  ">
+
+                <!-- login form  -->
+                            <div class="col-lg-3"> </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 p-b-30 bo-r">
+                                <form class="leave-comment">
+
+                                    <label> Username or Email</label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" value="{{ old('login') }}" name="login">
+                                    </div>
+
+                                    <label> Password</label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
+                                    </div>
+
+                                    <label class="container-checkmark ">
+                                        Keep me signed in
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <div class="">
+                                        <!-- Button -->
+                                        <button class="flex-c-m size2 bg1 bo-rad-3 hov1  trans-0-4 btn-primary m-b-10">
+                                            Sign In
+                                        </button>
+
+                                        <a class="text-primary Forgot-pw f-bold" href="#" data-toggle="modal" data-target=".bd-create-modal">Forgot your password? <span> click here</span></a>
+                                    </div>
+
+                                </form>
                             </div>
-                        </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 p-b-30  ">
+                                <form class="leave-comment">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <div class="login-box">
+                                        <a href="#" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
+                                        <a href="#" class="social-button" id="twitter-connect"> <span>Connect with Twitter </span></a>
+                                        <a href="#" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    </div>
+
+                                </form>
                             </div>
+                            <div class="col-lg-3"> </div>
+
                         </div>
+                    </div>
+            <!-- register form -->
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row ">
+                            <div class="col-md-3"> </div>
+                            <div class="col-md-3 p-b-30 bo-r">
+                                <form class="leave-comment" method="post" action="{{ route('register') }}">
+                                    @csrf
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    <label> Name </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('name') }}" type="text" name="name">
+                                    </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <label> User Name </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('user_name') }}" type="text" name="user_name">
+                                    </div>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <label>Email </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22"value="{{ old('email') }}"  type="email" name="email">
+                                    </div>
+
+                                    <label>Password </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
+                                    </div>
+
+                                    <label>Confirm Password </label>
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password_confirmation">
+                                    </div>
+
+                                    <p class="text-danger p-b-20 font-14"> it appears that you already have an account with us . Please <a href="{{route('login')}}" class="text-primary hover-me font-16"> Sign in</a> instead </p>
+                                    <div class="">
+                                        <!-- Button -->
+                                        <button class="flex-c-m size2 bg1 bo-rad-3 hov1  trans-0-4 btn-primary">
+                                            Sign Up
+                                        </button>
+                                    </div>
+
+                                </form>
                             </div>
-                        </div>
+                            <div class="col-md-3 p-b-30 ">
+                                <form class="leave-comment">
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                    <div class="login-box">
+                                        <a href="#" class="social-button" id="twitter-connect"> <span>Connect with Twitter </span></a>
+                                        <a href="#" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
+                                        <a href="#" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    </div>
+                                </form>
                             </div>
+                            <div class="col-md-3"> </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection
