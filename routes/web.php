@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/check_username', 'HomeController@check_username')->name('check_username');
+
+Route::get('/redirect-login-facebook', 'Auth\LoginController@redirect_login')->name('login_face');
+Route::get('/callback-facebook', 'Auth\LoginController@callback_login');
+
