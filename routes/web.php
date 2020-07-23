@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@home')->name('home');
+Route::get('/check_username', 'HomeController@check_username')->name('check_username');
