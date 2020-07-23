@@ -26,3 +26,6 @@ Route::get('/callback-facebook', 'Auth\LoginController@callback_login');
 Route::get('/redirect-login-google', 'Auth\LoginController@redirect_login_google')->name('login_google');
 Route::get('/callback-google', 'Auth\LoginController@callback_google');
 
+Route::get('/redirect-login-twitter', 'Auth\LoginController@login_twitter')->name('login_twitter');
+Route::get('/callback-twitter', 'Auth\LoginController@callback_twitter');
+

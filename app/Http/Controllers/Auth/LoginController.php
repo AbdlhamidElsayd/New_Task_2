@@ -54,9 +54,8 @@ class LoginController extends Controller
         }
     }
 
-    public function redirect_login(Request $request)
+    public function redirect_login()
     {
-        session()->put('status',$request->status );
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -68,30 +67,20 @@ class LoginController extends Controller
             auth()->login($find_user);
             return redirect()->to('/')->with(['status' => 'success', 'message' => __('login with facebook successfully')]);
         }else{
-            if(Session::has('status')){
-                if(session('status') == 'login'){
-                    return redirect()->to('/')->with(['status' => 'error', 'message' => __('you don\'t have an account')]);
-                }else{
-                    $user = User::create([
-                        'email' => $user->getEmail(),
-                        'name' => $user->getName(),
-                        'password' => md5(rand(1,10000)),
-                    ]);
-                    auth()->login($user);
-                    return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with facebook successfully')]);
-                }
-            } else{
-                return redirect()->to('/')->with(['status' => 'error', 'message' => __('Failed Authentication')]);
-            }
+            $user = User::create([
+                'email' => $user->getEmail(),
+                'name' => $user->getName(),
+                'password' => md5(rand(1,10000)),
+            ]);
+            auth()->login($user);
+            return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with facebook successfully')]);
         }
     }
 
-    public function redirect_login_google(Request $request)
+    public function redirect_login_google()
     {
-        session()->put('status',$request->status );
         return Socialite::driver('google')->redirect();
     }
-
     public function callback_google()
     {
         $user = Socialite::driver('google')->user();
@@ -100,21 +89,36 @@ class LoginController extends Controller
             auth()->login($find_user);
             return redirect()->to('/')->with(['status' => 'success', 'message' => __('login with google successfully')]);
         }else{
-            if(Session::has('status')){
-                if(session('status') == 'login'){
-                    return redirect()->to('/')->with(['status' => 'error', 'message' => __('you don\'t have an account')]);
-                }else{
-                    $user = User::create([
-                        'email' => $user->getEmail(),
-                        'name' => $user->getName(),
-                        'password' => md5(rand(1,10000)),
-                    ]);
-                    auth()->login($user);
-                    return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with google successfully')]);
-                }
-            } else{
-                return redirect()->to('/')->with(['status' => 'error', 'message' => __('Failed Authentication')]);
-            }
+            $user = User::create([
+                'email' => $user->getEmail(),
+                'name' => $user->getName(),
+                'password' => md5(rand(1,10000)),
+            ]);
+            auth()->login($user);
+            return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with google successfully')]);
+        }
+    }
+
+    public function login_twitter()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    public function callback_twitter()
+    {
+        $user = Socialite::driver('twitter')->user();
+        $find_user = \App\User::where('email' ,$user->email )->first();
+        if($find_user){
+            auth()->login($find_user);
+            return redirect()->to('/')->with(['status' => 'success', 'message' => __('login with twitter successfully')]);
+        }else{
+            $user = User::create([
+                'email' => $user->getEmail(),
+                'name' => $user->getName(),
+                'password' => md5(rand(1,10000)),
+            ]);
+            auth()->login($user);
+            return redirect()->to('/')->with(['status' => 'success', 'message' => __('Register with twitter successfully')]);
         }
     }
 }

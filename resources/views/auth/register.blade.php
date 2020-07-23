@@ -1,4 +1,5 @@
 @extends('front.layouts.app')
+@section('title') Register @endsection
 
 @section('content')
   <!-- content page -->
@@ -34,8 +35,9 @@
                 <!-- login form  -->
                             <div class="col-lg-3"> </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 p-b-30 bo-r">
-                                <form class="leave-comment">
 
+                                <form class="leave-comment" method="post" action="{{ route('login') }}">
+                                    @csrf
                                     <label> Username or Email</label>
                                     <div class="bo4 of-hidden size15 m-b-20">
                                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" value="{{ old('login') }}" name="login">
@@ -58,7 +60,7 @@
                                             Sign In
                                         </button>
 
-                                        <a class="text-primary Forgot-pw f-bold" href="#" data-toggle="modal" data-target=".bd-create-modal">Forgot your password? <span> click here</span></a>
+                                        <a class="text-primary Forgot-pw f-bold" href="{{route('password.request')}}">Forgot your password? <span> click here</span></a>
                                     </div>
 
                                 </form>
@@ -68,9 +70,9 @@
 
 
                                     <div class="login-box">
-                                        <a href="#" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
+                                        <a href="{{ route('login_google', ['status' => 'login']) }}" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
                                         <a href="#" class="social-button" id="twitter-connect"> <span>Connect with Twitter </span></a>
-                                        <a href="#" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
+                                        <a href="{{ route('login_face',['status'=>'login']) }}" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
 
                                     </div>
 
@@ -95,7 +97,7 @@
 
                                     <label> User Name </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('user_name') }}" type="text" name="user_name">
+                                        <input id="username" class="sizefull s-text7 p-l-22 p-r-22" value="{{ old('user_name') }}" type="text" name="user_name">
                                     </div>
 
                                     <label>Email </label>
@@ -105,12 +107,12 @@
 
                                     <label>Password </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
+                                        <input id="password" class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password">
                                     </div>
 
                                     <label>Confirm Password </label>
                                     <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password_confirmation">
+                                        <input id="password_confirmation" class="sizefull s-text7 p-l-22 p-r-22" type="Password" name="password_confirmation">
                                     </div>
 
                                     <p class="text-danger p-b-20 font-14"> it appears that you already have an account with us . Please <a href="{{route('login')}}" class="text-primary hover-me font-16"> Sign in</a> instead </p>
@@ -128,8 +130,8 @@
 
                                     <div class="login-box">
                                         <a href="#" class="social-button" id="twitter-connect"> <span>Connect with Twitter </span></a>
-                                        <a href="#" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
-                                        <a href="#" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
+                                        <a href="{{ route('login_face') }}" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
+                                        <a href="{{ route('login_google') }}" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
 
                                     </div>
                                 </form>
@@ -141,4 +143,42 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+
+    <script type="text/javascript">
+        $("#username").focusout(function(){
+            let action      =  "{{route('check_username')}}";
+            let username      =  $(this).val();
+            console.log($(this).val())
+            $.ajax({
+                url:  action,
+                type: 'get',
+                dataType: 'JSON',
+                data: { username: username},
+                success: function(data, status){
+                    if(data.status=="success"){
+                        toastr['success'](""+data.message)
+                    }else{
+                        toastr['error'](""+data.message)
+                    } 
+                
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+       $("#password_confirmation").focusout(function(){
+            let password_confirmation =  $(this).val();
+            let password              =  $("#password").val();
+            console.log(password_confirmation)
+            console.log(password)
+            if(password_confirmation != password){
+                toastr['error']("password dosn't match")
+            }
+        });
+    </script>
+
 @endsection
